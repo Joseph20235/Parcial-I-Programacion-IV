@@ -1,0 +1,71 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class LoginFrame extends JFrame 
+{
+    private JTextField txtCorreo; 
+    private JPasswordField txtPassword;
+    private UsuarioServicio usuarioServicio;
+
+    public LoginFrame() 
+    {
+        usuarioServicio = new UsuarioServicio();
+        setTitle("Login");
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel();
+        add(panel);
+        placeComponents(panel);
+
+        setVisible(true);
+    }
+
+    private void placeComponents(JPanel panel) 
+    {
+        panel.setLayout(null);
+
+        JLabel userLabel = new JLabel("Correo:");
+        userLabel.setBounds(10, 20, 80, 25);
+        panel.add(userLabel);
+
+        txtCorreo = new JTextField(20);
+        txtCorreo.setBounds(100, 20, 165, 25);
+        panel.add(txtCorreo);
+
+        JLabel passwordLabel = new JLabel("Contraseña:");
+        passwordLabel.setBounds(10, 50, 80, 25);
+        panel.add(passwordLabel);
+
+        txtPassword = new JPasswordField(20);
+        txtPassword.setBounds(100, 50, 165, 25);
+        panel.add(txtPassword);
+
+        JButton loginButton = new JButton("Ingresar");
+        loginButton.setBounds(10, 80, 80, 25);
+        panel.add(loginButton);
+
+      
+        loginButton.addActionListener(new ActionListener() 
+        {
+            @Override
+            public void actionPerformed(ActionEvent e) 
+            {
+                String correo = txtCorreo.getText();
+                String password = new String(txtPassword.getPassword());
+
+                if (usuarioServicio.validarUsuario(correo, password)) 
+                {
+                    Usuario usuario = UsuarioRepositorio.obtenerUsuarioPorCorreo(correo);
+                    new MainFrame(usuario);
+                    dispose(); 
+                } else 
+                {
+                    JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+                }
+            }
+        });
+    }
+}
