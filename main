@@ -1,0 +1,11 @@
+public class GestionInventario {
+
+    public static void main(String[] args) 
+    {
+
+        UsuarioRepositorio.crearUsuario(new Usuario(1, "Jose", "Osorio", "CC", "1137059196", 
+            "Calle 5", "3207355416", "josephosoriocubillos@gmail.com", true));
+
+        new LoginFrame();
+    }
+}
