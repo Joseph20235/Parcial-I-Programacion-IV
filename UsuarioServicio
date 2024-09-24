@@ -1,0 +1,21 @@
+public class UsuarioServicio 
+{
+    private UsuarioRepositorio usuarioRepositorio;
+
+  
+    public UsuarioServicio() 
+    {
+        this.usuarioRepositorio = new UsuarioRepositorio();
+    }
+
+    public boolean validarUsuario(String correo, String password) 
+    {
+        Usuario usuario = UsuarioRepositorio.obtenerUsuarioPorCorreo(correo);
+
+        if (usuario != null && password.equals("123")) 
+        {
+            return true;
+        }
+        return false;
+    }
+}
