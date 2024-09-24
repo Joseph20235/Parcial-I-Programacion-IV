@@ -1,0 +1,42 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class MainFrame extends JFrame 
+{
+
+    public MainFrame(Usuario usuario) 
+    {
+        setTitle("Bienvenido");
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel();
+        add(panel);
+        placeComponents(panel, usuario);
+
+        setVisible(true);
+    }
+
+    private void placeComponents(JPanel panel, Usuario usuario) 
+    {
+        panel.setLayout(null);
+
+        JLabel welcomeLabel = new JLabel("Bienvenido, " + usuario.getNombre() + " " + usuario.getApellido());
+        welcomeLabel.setBounds(10, 20, 300, 25);
+        panel.add(welcomeLabel);
+
+        JButton logoutButton = new JButton("Cerrar sesión");
+        logoutButton.setBounds(10, 50, 150, 25);
+        panel.add(logoutButton);
+
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new LoginFrame(); 
+                dispose(); 
+            }
+        });
+    }
+}
